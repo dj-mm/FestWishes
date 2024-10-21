@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="FW.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FestWishes</title>
+  <title>FestWishesh</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -125,14 +124,14 @@
 </head>
 <body>
 
-  <h1>FestWishes ✨</h1>
+  <h1>Fest Wishes ✨</h1>
 
   <div class="wish-container">
     <label for="name">Enter Your Name (Sender):</label>
     <input type="text" id="name" placeholder="Your Name" required>
 
     <label for="festival">Select Festival:</label>
-    <select id="festival">
+    <select id="festival" onchange="toggleCustomFestivalInput()">
       <option value="">Select Festival</option>
       <option value="Holi">Holi</option>
       <option value="Diwali">Diwali</option>
@@ -146,7 +145,10 @@
       <option value="Dussehra">Dussehra</option>
       <option value="Guru Nanak Jayanti">Guru Nanak Jayanti</option>
       <option value="Republic Day">Republic Day</option>
+      <option value="custom">Custom Festival</option>
     </select>
+
+    <input type="text" id="customFestival" placeholder="Enter Custom Festival Name" style="display: none;">
 
     <button class="button" onclick="generateWish()">Generate Wish</button>
 
@@ -159,45 +161,66 @@
   </div>
 
   <footer>
-    <p>Developed with ❤️ by <b><a href="https://linktr.ee/manash.djmm" target="_blank">Manash</a></b> |FestWishes|</p>
+    <p>Developed with ❤️ by <b><a href="https://linktr.ee/manash.djmm" target="_blank">Manash</a></b> |ComplementHere|</p>
   </footer>
 
   <script>
     const wishes = {
-      "Holi": "🌈 Happy Holi! May your life be as colorful as the festival itself. Wishing you vibrant moments and happiness. From  <em>{name}</em>! 💖",
-      "Diwali": "🎆 Wishing you a prosperous Diwali! May your days be filled with light, happiness, and endless joy. From  <em>{name}</em>! 🪔",
-      "Christmas": "🎄 Merry Christmas! May your holidays be filled with joy, laughter, and the spirit of giving. From  <em>{name}</em>! 🎅🎁",
+      "Holi": "🌈 Happy Holi! May your life be as colorful as the festival itself. Wishing you vibrant moments and happiness. From <em>{name}</em>! 💖",
+      "Diwali": "🎆 Wishing you a prosperous Diwali! May your days be filled with light, happiness, and endless joy. From <em>{name}</em>! 🪔",
+      "Christmas": "🎄 Merry Christmas! May your holidays be filled with joy, laughter, and the spirit of giving. From <em>{name}</em>! 🎅🎁",
       "Rakshabandhan": "🎀 Happy Rakshabandhan! May the bond between you and your siblings grow stronger. Sent with love by <em>{name}</em>! 👫",
-      "Eid": "🌙 Eid Mubarak! May Allah's blessings be with you today, tomorrow, and always. From  <em>{name}</em>! 🤲💫",
-      "Janmashtami": "🙏 Happy Janmashtami! May Lord Krishna bless you with love, peace, and joy. From  <em>{name}</em>! 🐄🍀",
-      "Independence Day": "🇮🇳 Happy Independence Day! Let’s celebrate the spirit of freedom and unity. From  <em>{name}</em>! 🕊️",
-      "Ganesh Chaturthi": "🕉️ Happy Ganesh Chaturthi! May Lord Ganesha remove all obstacles and bless you with happiness. From  <em>{name}</em>! 🙏🐘",
-      "Gandhi Jayanti": "✌️ Happy Gandhi Jayanti! Let’s remember the Father of our Nation and his teachings of peace. From  <em>{name}</em>! ☮️",
-      "Dussehra": "🏹 Happy Dussehra! May the victory of good over evil inspire you. From  <em>{name}</em>! 💫",
-      "Guru Nanak Jayanti": "🙏 Happy Guru Nanak Jayanti! May the teachings of Guru Nanak guide you. From  <em>{name}</em>! 🌼",
-      "Republic Day": "🇮🇳 Happy Republic Day! Let’s celebrate the unity and diversity of our nation. From  <em>{name}</em>! 🏵️"
+      "Eid": "🌙 Eid Mubarak! May Allah's blessings be with you today, tomorrow, and always. From <em>{name}</em>! 🤲💫",
+      "Janmashtami": "🙏 Happy Janmashtami! May Lord Krishna bless you with love, peace, and joy. From <em>{name}</em>! 🐄🍀",
+      "Independence Day": "🇮🇳 Happy Independence Day! Let’s celebrate the spirit of freedom and unity. From <em>{name}</em>! 🕊️",
+      "Ganesh Chaturthi": "🕉️ Happy Ganesh Chaturthi! May Lord Ganesha remove all obstacles and bless you with happiness. From <em>{name}</em>! 🙏🐘",
+      "Gandhi Jayanti": "✌️ Happy Gandhi Jayanti! Let’s remember the Father of our Nation and his teachings of peace. From <em>{name}</em>! ☮️",
+      "Dussehra": "🏹 Happy Dussehra! May the victory of good over evil inspire you. From <em>{name}</em>! 💫",
+      "Guru Nanak Jayanti": "🙏 Happy Guru Nanak Jayanti! May the teachings of Guru Nanak guide you. From <em>{name}</em>! 🌼",
+      "Republic Day": "🇮🇳 Happy Republic Day! Let’s celebrate the unity and diversity of our nation. From <em>{name}</em>! 🏵️"
     };
+
+    function toggleCustomFestivalInput() {
+      const festival = document.getElementById("festival").value;
+      const customFestivalInput = document.getElementById("customFestival");
+
+      if (festival === "custom") {
+        customFestivalInput.style.display = "block";
+      } else {
+        customFestivalInput.style.display = "none";
+      }
+    }
 
     function generateWish() {
       const name = document.getElementById("name").value;
       const festival = document.getElementById("festival").value;
-      const nameRegex = /^[A-Za-z\s]+$/; // Regex for validating the name
+      const customFestival = document.getElementById("customFestival").value;
+      const nameRegex = /^[A-Za-z\s]+$/; // Regex for name validation
 
-      if (name && festival) {
-        if (nameRegex.test(name)) { // Check if name is valid
-          const wish = wishes[festival].replace("{name}", name);
-          document.getElementById("wishBox").innerHTML = wish;
-          document.getElementById("wishBox").style.display = "block";
-          document.getElementById("copyBtn").style.display = "inline-block";
-
-          const progressBar = document.getElementById("progressBar");
-          progressBar.style.width = "100%";
-        } else {
-          alert("Please enter a valid name (letters and spaces only).");
-        }
-      } else {
-        alert("Please enter your name and select a festival.");
+      if (!name || !nameRegex.test(name)) {
+        alert("Please enter a valid name containing only letters and spaces.");
+        return;
       }
+
+      if (!festival || (festival === "custom" && !customFestival)) {
+        alert("Please select a festival or enter a custom festival.");
+        return;
+      }
+
+      let wishMessage;
+      if (festival === "custom") {
+        wishMessage = `🎉 Happy ${customFestival}! May this day bring you happiness and joy. Best wishes from <em>${name}</em>! 🎊`;
+      } else {
+        wishMessage = wishes[festival].replace("{name}", name);
+      }
+
+      document.getElementById("wishBox").innerHTML = wishMessage;
+      document.getElementById("wishBox").style.display = "block";
+      document.getElementById("copyBtn").style.display = "inline-block";
+
+      // Simulating a loading bar
+      const progressBar = document.getElementById("progressBar");
+      progressBar.style.width = "100%";
     }
 
     function copyWish() {
